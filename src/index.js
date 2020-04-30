@@ -16,3 +16,13 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+function handleFirstTab(e) {
+  if (e.keyCode === 9) {
+    // the "I am a keyboard user" key
+    document.body.classList.add('user-is-tabbing');
+    window.removeEventListener('keydown', handleFirstTab);
+  }
+}
+
+window.addEventListener('keydown', handleFirstTab);

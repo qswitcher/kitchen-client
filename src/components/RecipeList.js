@@ -8,7 +8,6 @@ const Flex = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin: 16px 0;
 `;
 
 const RecipeList = () => {
