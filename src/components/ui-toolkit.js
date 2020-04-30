@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link as RouterLink } from 'react-router-dom';
 
 export const Card = styled.div.attrs((props) => ({
   margin: props.margin || 0,
@@ -11,4 +12,9 @@ export const Card = styled.div.attrs((props) => ({
 
   margin: ${(props) => props.margin};
   padding: ${(props) => props.padding};
+`;
+
+export const Link = styled(RouterLink)`
+  text-decoration: none;
+  color: inherit;
 `;
