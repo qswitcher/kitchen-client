@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
-import recipes from '../data/recipes.json';
+import { useQueryParams } from '../hooks/url-hooks';
+import Pager from './Pager';
 
 const Flex = styled.div`
   display: flex;
@@ -13,34 +14,45 @@ const Flex = styled.div`
 `;
 
 const GET_RECIPES = gql`
-  query GetRecipes($limit: Int!) {
-    recipes(limit: $limit) {
+  query GetRecipes($page: Int!, $pageSize: Int!) {
+    recipes(page: $page, pageSize: $pageSize) {
       items {
         slug
         title
         shortDescription
         thumbnail
       }
-      nextToken
+      page
+      pageCount
+      pageSize
     }
   }
 `;
 
 const RecipeList = () => {
+  const params = useQueryParams();
+  const page = parseInt(params.page || '1', 10);
   const { data, loading } = useQuery(GET_RECIPES, {
     variables: {
-      limit: 6,
+      page,
+      pageSize: 12,
     },
   });
   if (loading) {
     return <div>Loading...</div>;
   }
+  const {
+    recipes: { items, pageCount },
+  } = data;
   return (
-    <Flex>
-      {data.recipes.items.map((r, index) => (
-        <RecipeCard {...r} key={index} />
-      ))}
-    </Flex>
+    <>
+      <Flex>
+        {items.map((r, index) => (
+          <RecipeCard {...r} key={index} />
+        ))}
+      </Flex>
+      <Pager page={page} pageCount={pageCount} />
+    </>
   );
 };
 
