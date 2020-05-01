@@ -7,7 +7,7 @@ import RecipeList from './RecipeList';
 import CreateRecipe from './CreateRecipe';
 
 const client = new ApolloClient({
-  uri: 'https://48p1r2roz4.sse.codesandbox.io',
+  uri: '/graphql',
 });
 
 function Root() {
