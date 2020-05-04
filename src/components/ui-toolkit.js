@@ -18,3 +18,31 @@ export const Link = styled(RouterLink)`
   text-decoration: none;
   color: inherit;
 `;
+
+export const InputGroup = styled.div`
+  margin: 16px 0;
+  width: 100%;
+
+  input,
+  textarea {
+    color: #676767;
+    width: 100%;
+    background-color: #f5f5f5;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+  }
+
+  & > * {
+    display: block;
+  }
+`;
+
+export const Submit = styled.input`
+  background-color: #6ba72b;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  margin-top: 16px;
+  min-width: 160px;
+`;

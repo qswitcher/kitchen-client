@@ -27,7 +27,11 @@ const Pager = ({ page, pageCount }) => {
   const links = [];
   for (let i = 0; i < pageCount; i++) {
     links.push(
-      <PageLink active={page === i + 1} to={{ search: `?page=${i + 1}` }}>
+      <PageLink
+        key={i}
+        active={String(page === i + 1)}
+        to={{ search: `?page=${i + 1}` }}
+      >
         {i + 1}
       </PageLink>
     );

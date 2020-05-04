@@ -38,7 +38,8 @@ const RecipeList = () => {
       pageSize: 12,
     },
   });
-  if (loading) {
+  console.log(data);
+  if (loading || !data) {
     return <div>Loading...</div>;
   }
   const {

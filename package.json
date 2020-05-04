@@ -8,6 +8,8 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "apollo-boost": "^0.4.7",
+    "apollo-link-context": "^1.0.20",
+    "aws-amplify": "^3.0.10",
     "graphql": "^15.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -36,5 +38,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:4000"
+  "proxy": "https://uke4egycm4.execute-api.us-east-1.amazonaws.com/dev"
 }
