@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
+import { useAppContext } from '../contexts/app-context';
 
 const NavBase = styled.nav`
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.03);
@@ -34,11 +35,12 @@ const NavItem = styled.li`
 
 const Header = () => {
   const history = useHistory();
+  const { isAuthenticated, userHasAuthenticated } = useAppContext();
 
   const handleLogout = async () => {
     await Auth.signOut();
 
-    // userHasAuthenticated(false);
+    userHasAuthenticated(false);
 
     history.push('/recipes');
   };
@@ -49,17 +51,23 @@ const Header = () => {
         <NavItem>
           <Link to="/recipes">Recipes</Link>
         </NavItem>
-        <NavItem>
-          <Link to="/create-recipe">Add Recipe</Link>
-        </NavItem>
-        <NavItem>
-          <Link to="/login">Login</Link>
-        </NavItem>
-        <NavItem>
-          <Link to="/recipes" onClick={handleLogout}>
-            Logout
-          </Link>
-        </NavItem>
+        {isAuthenticated && (
+          <NavItem>
+            <Link to="/create-recipe">Add Recipe</Link>
+          </NavItem>
+        )}
+        {!isAuthenticated && (
+          <NavItem>
+            <Link to="/login">Login</Link>
+          </NavItem>
+        )}
+        {isAuthenticated && (
+          <NavItem>
+            <Link to="/recipes" onClick={handleLogout}>
+              Logout
+            </Link>
+          </NavItem>
+        )}
       </Nav>
     </header>
   );
