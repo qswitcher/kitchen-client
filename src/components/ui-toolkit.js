@@ -43,6 +43,23 @@ export const Submit = styled.input`
   border: none;
   border-radius: 4px;
   color: #fff;
+  cursor: pointer;
   margin-top: 16px;
   min-width: 160px;
+`;
+
+export const Button = styled.button`
+  background-color: #f5f5f5;
+  border: none;
+  border-radius: 4px;
+  color: inherit;
+  cursor: pointer;
+  margin-top: 16px;
+  min-width: 160px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: #fff;
+    background-color: #6ba72b;
+  }
 `;
