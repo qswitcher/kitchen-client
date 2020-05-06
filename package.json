@@ -11,6 +11,7 @@
     "apollo-link-context": "^1.0.20",
     "aws-amplify": "^3.0.10",
     "graphql": "^15.0.0",
+    "http-proxy-middleware": "^1.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
@@ -18,7 +19,8 @@
     "styled-components": "^5.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "ENVIRONMENT=local react-scripts start",
+    "start:dev": "ENVIRONMENT=dev react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -37,6 +39,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "https://uke4egycm4.execute-api.us-east-1.amazonaws.com/dev"
+  }
 }

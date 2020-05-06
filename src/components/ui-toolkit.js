@@ -33,6 +33,10 @@ export const InputGroup = styled.div`
     padding: 4px 8px;
   }
 
+  textarea {
+    resize: vertical;
+  }
+
   & > * {
     display: block;
   }

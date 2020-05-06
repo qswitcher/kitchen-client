@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
 import { Card, InputGroup, Submit, Button } from './ui-toolkit';
 import { useInputs } from '../hooks/input-hooks';
 import { ReactComponent as CameraIcon } from '../images/camera-icon.svg';
 import { useHistory } from 'react-router-dom';
+import { s3Upload } from '../utils/aws';
+import { onError } from '../utils/errors';
+import config from '../config';
 
 const Col = styled.div`
   width: ${(props) => props.w || '100%'};
@@ -56,8 +59,10 @@ const PlaceHolder = styled.div`
 `;
 
 const CreateRecipe = () => {
+  const file = useRef(null);
   const history = useHistory();
   const [image, setImage] = useState({ preview: '', raw: '' });
+  const [isLoading, setIsLoading] = useState(false);
   const { bind, reset, values } = useInputs({
     shortDescription: '',
     description: '',
@@ -71,13 +76,34 @@ const CreateRecipe = () => {
     history.goBack();
   };
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    console.log(values);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // if (file.current && file.current.size > config.MAX_ATTACHMENT_SIZE) {
+    //   alert(
+    //     `Please pick a file smaller than ${
+    //       config.MAX_ATTACHMENT_SIZE / 1000000
+    //     } MB.`
+    //   );
+    //   return;
+    // }
+
+    setIsLoading(true);
+
+    try {
+      const thumbnail = file.current ? await s3Upload(file.current) : null;
+
+      console.log({ ...values, thumbnail });
+      history.push('/');
+    } catch (e) {
+      onError(e);
+      setIsLoading(false);
+    }
   };
 
   const handleFileChange = (e) => {
     if (e.target.files.length) {
+      file.current = e.target.files[0];
       setImage({
         preview: URL.createObjectURL(e.target.files[0]),
         raw: e.target.files[0],
@@ -132,7 +158,7 @@ const CreateRecipe = () => {
               />
             </InputGroup>
             <ButtonBar>
-              <Submit type="submit" value="Save" />
+              <Submit type="submit" value="Save" disabled={isLoading} />
               <Button onClick={handleCancel}>Cancel</Button>
             </ButtonBar>
           </Col>
