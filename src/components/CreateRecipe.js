@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { Card, InputGroup, Submit, Button } from './ui-toolkit';
-import { useInput } from '../hooks/input-hooks';
+import { useInputs } from '../hooks/input-hooks';
 import { ReactComponent as CameraIcon } from '../images/camera-icon.svg';
 import { useHistory } from 'react-router-dom';
 
 const Col = styled.div`
-  width: ${(props) => props.width || '100%'};
+  width: ${(props) => props.w || '100%'};
 `;
 
 const Row = styled.div`
@@ -31,13 +31,22 @@ const SubTitle = styled.div`
   font-size: 0.75em;
 `;
 
-const PhotoUploadWrapper = styled.div`
-  margin-top: 16px;
-  padding: 16px;
+const PhotoUploadWrapper = styled.label`
   cursor: pointer;
-  border-radius: 4px;
-  text-align: center;
+  display: block;
+  margin-top: 16px;
+  height: 100%;
+
+  input[type='file'] {
+    display: none;
+  }
+`;
+
+const PlaceHolder = styled.div`
   border: 1px dashed #c2c2c2;
+  border-radius: 4px;
+  padding: 16px;
+  text-align: center;
 
   svg {
     margin: auto;
@@ -48,51 +57,32 @@ const PhotoUploadWrapper = styled.div`
 
 const CreateRecipe = () => {
   const history = useHistory();
-  const { value: title, bind: bindTitle, reset: resetTitle } = useInput('');
-  const {
-    value: shortDescription,
-    bind: bindShortDescription,
-    reset: resetShortDescription,
-  } = useInput('');
-  const {
-    value: description,
-    bind: bindDescription,
-    reset: resetDescription,
-  } = useInput('');
-  const {
-    value: ingredients,
-    bind: bindIngredients,
-    reset: resetIngredients,
-  } = useInput('');
-  const {
-    value: instructions,
-    bind: bindInstructions,
-    reset: resetInstructions,
-  } = useInput('');
+  const [image, setImage] = useState({ preview: '', raw: '' });
+  const { bind, reset, values } = useInputs({
+    shortDescription: '',
+    description: '',
+    ingredients: '',
+    instructions: '',
+    title: '',
+  });
 
   const handleCancel = () => {
-    resetTitle();
-    resetShortDescription();
-    resetDescription();
-    resetIngredients();
-    resetInstructions();
+    reset();
     history.goBack();
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log({
-      title,
-      shortDescription,
-      description,
-      ingredients,
-      instructions,
-    });
-    resetTitle();
-    resetShortDescription();
-    resetDescription();
-    resetIngredients();
-    resetInstructions();
+    console.log(values);
+  };
+
+  const handleFileChange = (e) => {
+    if (e.target.files.length) {
+      setImage({
+        preview: URL.createObjectURL(e.target.files[0]),
+        raw: e.target.files[0],
+      });
+    }
   };
 
   return (
@@ -100,38 +90,45 @@ const CreateRecipe = () => {
       <h1>Add Recipe</h1>
       <form onSubmit={handleSubmit}>
         <Row>
-          <Col width="600px">
+          <Col w="600px">
             <PhotoUploadWrapper>
-              <CameraIcon />
-              <div>Click to upload photo</div>
-              <SubTitle>Minimum size 800 x 400</SubTitle>
+              {image.preview ? (
+                <img src={image.preview} alt="dummy" />
+              ) : (
+                <PlaceHolder>
+                  <CameraIcon />
+                  <div>Click to upload photo</div>
+                  <SubTitle>Minimum size 800 x 400</SubTitle>
+                </PlaceHolder>
+              )}
+              <input type="file" accept="image/*" onChange={handleFileChange} />
             </PhotoUploadWrapper>
           </Col>
           <Col>
             <InputGroup>
               <label>Title</label>
-              <input type="text" {...bindTitle} />
+              <input type="text" {...bind.title} />
             </InputGroup>
             <InputGroup>
               <label>Short Description</label>
-              <textarea {...bindShortDescription} />
+              <textarea {...bind.shortDescription} />
             </InputGroup>
             <InputGroup>
               <label>Description</label>
-              <textarea {...bindDescription} />
+              <textarea {...bind.description} />
             </InputGroup>
             <InputGroup>
               <label>Ingredients</label>
               <textarea
                 placeholder="Place each ingredient on its own line"
-                {...bindIngredients}
+                {...bind.ingredients}
               />
             </InputGroup>
             <InputGroup>
               <label>Instructions</label>
               <textarea
                 placeholder="Place each step on its own line"
-                {...bindInstructions}
+                {...bind.instructions}
               />
             </InputGroup>
             <ButtonBar>
