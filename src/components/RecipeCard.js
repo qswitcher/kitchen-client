@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Card, Link } from './ui-toolkit';
+import config from '../config';
 
 const Flex = styled.div`
   width: 33.33333333%;
@@ -13,14 +14,20 @@ const CardDetails = styled.div`
   min-height: 150px;
 `;
 
-const RecipeCard = ({ title, shortDescription, thumbnail }) => {
+const RecipeCard = ({ title, shortDescription, thumbnail, photo }) => {
   const slug = title.toLowerCase().replace(/\s+/g, '-');
   return (
     <Flex>
       <Link to={`/recipe/${slug}`}>
         <Card>
           <div>
-            <img src={thumbnail} />
+            <img
+              src={
+                thumbnail
+                  ? thumbnail
+                  : `https://${config.s3.BUCKET}.s3.amazonaws.com/public/${photo}`
+              }
+            />
           </div>
           <CardDetails>
             <h4>{title}</h4>

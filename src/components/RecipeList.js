@@ -21,6 +21,7 @@ const GET_RECIPES = gql`
         title
         shortDescription
         thumbnail
+        photo
       }
       page
       pageCount
@@ -38,7 +39,6 @@ const RecipeList = () => {
       pageSize: 12,
     },
   });
-  console.log(data);
   if (loading || !data) {
     return <div>Loading...</div>;
   }

@@ -25,14 +25,19 @@ export const useInputs = (initialValues) => {
       const setValue = (v) => {
         setValues({ ...values, [key]: v });
       };
+      const isArray = Array.isArray(value);
+
       return {
         input: {
           value,
           setValue,
           reset: () => setValue(initialValues[key]),
           bind: {
-            value,
-            onChange: (event) => setValue(event.target.value),
+            value: isArray ? value.join('\n') : value,
+            onChange: (event) =>
+              setValue(
+                isArray ? event.target.value.split(/\n+/g) : event.target.value
+              ),
           },
         },
         key,

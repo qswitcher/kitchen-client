@@ -1,5 +1,8 @@
-import styled from 'styled-components';
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 
 export const Card = styled.div.attrs((props) => ({
   margin: props.margin || 0,
@@ -42,28 +45,72 @@ export const InputGroup = styled.div`
   }
 `;
 
-export const Submit = styled.input`
-  background-color: #6ba72b;
-  border: none;
-  border-radius: 4px;
-  color: #fff;
-  cursor: pointer;
-  margin-top: 16px;
-  min-width: 160px;
-`;
-
 export const Button = styled.button`
-  background-color: #f5f5f5;
+  background-color: ${(props) => (props.primary ? '#6ba72b' : '#f5f5f5')};
   border: none;
   border-radius: 4px;
-  color: inherit;
+  color: ${(props) => (props.primary ? '#fff' : 'inherit')};
   cursor: pointer;
   margin-top: 16px;
   min-width: 160px;
+  padding: 4px;
   transition: all 0.2s ease-in-out;
 
-  &:hover {
+  &:hover:not(:disabled) {
     color: #fff;
-    background-color: #6ba72b;
+    background-color: ${(props) => (props.primary ? '#333333' : '#6ba72b')};
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
   }
 `;
+
+const spin = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const IconFeedback = styled.div`
+  margin-left: -16px;
+  margin-right: 8px;
+  display: inline-block;
+  animation: ${spin} 2s infinite linear;
+`;
+
+export const Submit = ({ children, loading, ...rest }) => (
+  <Button disabled={loading} primary {...rest}>
+    {loading && (
+      <IconFeedback>
+        <FontAwesomeIcon icon={faSyncAlt} />
+      </IconFeedback>
+    )}
+    {children}
+  </Button>
+);
+
+const AlertDangerBase = styled.div`
+  background-color: #c0392b;
+  color: #fff;
+  border-radius: 4px;
+  padding: 8px;
+  margin-top: 16px;
+
+  & > svg {
+    margin: 0 8px;
+  }
+`;
+
+export const AlertDanger = ({ children }) => {
+  return (
+    <AlertDangerBase>
+      <FontAwesomeIcon icon={faTimesCircle} />
+      {children}
+    </AlertDangerBase>
+  );
+};
