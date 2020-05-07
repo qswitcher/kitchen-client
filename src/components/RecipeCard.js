@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Card, Link } from './ui-toolkit';
 import config from '../config';
+import { imageUrl } from '../utils/aws';
 
 const Flex = styled.div`
   width: 33.33333333%;
@@ -21,13 +22,7 @@ const RecipeCard = ({ title, shortDescription, thumbnail, photo }) => {
       <Link to={`/recipe/${slug}`}>
         <Card>
           <div>
-            <img
-              src={
-                thumbnail
-                  ? thumbnail
-                  : `https://${config.s3.BUCKET}.s3.amazonaws.com/public/${photo}`
-              }
-            />
+            <img src={thumbnail ? thumbnail : imageUrl(photo)} />
           </div>
           <CardDetails>
             <h4>{title}</h4>
