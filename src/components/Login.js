@@ -31,8 +31,8 @@ export default function Login() {
   }
 
   return (
-    <Card padding="32px 64px">
-      <form onSubmit={handleSubmit}>
+    <Card padding="32px 64px" maxWidth="448px" margin="auto">
+      <form>
         <InputGroup>
           <label for="email">Email</label>
           <input type="text" {...bindEmail} />
@@ -42,10 +42,12 @@ export default function Login() {
           <input type="password" {...bindPassword} />
         </InputGroup>
         <Submit
-          type="submit"
-          value="Login"
           disabled={!validateForm() || loading}
-        />
+          onClick={handleSubmit}
+          loading={loading}
+        >
+          Login
+        </Submit>
       </form>
     </Card>
   );

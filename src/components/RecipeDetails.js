@@ -10,7 +10,15 @@ import {
   faEdit,
 } from '@fortawesome/free-solid-svg-icons';
 
-import { Card as BaseCard, SubTitle, Title, Col2, Row } from './ui-toolkit';
+import { useAppContext } from '../contexts/app-context';
+import {
+  Card as BaseCard,
+  SubTitle,
+  Title,
+  Col2,
+  Row,
+  Link,
+} from './ui-toolkit';
 import Checkbox from './Checkbox';
 import { imageUrl } from '../utils/aws';
 
@@ -52,11 +60,21 @@ const NakedLi = styled.li`
   list-style-type: none;
 `;
 
+const EditWrapper = styled.span`
+  margin-left: 16px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: #6ba72b;
+  }
+`;
+
 const RecipeDetails = () => {
+  const { isAuthenticated } = useAppContext();
   const [checked, setChecked] = useState({ ingredients: [], instructions: [] });
-  const params = useParams();
+  const { slug } = useParams();
   const { data, loading } = useQuery(GET_RECIPE, {
-    variables: { slug: params.slug },
+    variables: { slug },
   });
 
   const toggle = (key, index) => {
@@ -84,7 +102,16 @@ const RecipeDetails = () => {
     <Card>
       <img src={photo ? imageUrl(photo) : thumbnail} />
       <CardDetails>
-        <Title>{title}</Title>
+        <Title>
+          {title}
+          {isAuthenticated && (
+            <EditWrapper>
+              <Link to={`/edit/${slug}`}>
+                <FontAwesomeIcon icon={faEdit} />
+              </Link>
+            </EditWrapper>
+          )}
+        </Title>
         <Text>{longDescription}</Text>
         <Separator />
         <Row>
