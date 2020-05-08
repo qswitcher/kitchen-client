@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card, Link } from './ui-toolkit';
-import config from '../config';
+import { Card, Link, SubTitle } from './ui-toolkit';
 import { imageUrl } from '../utils/aws';
 
 const Flex = styled.div`
@@ -25,7 +24,7 @@ const RecipeCard = ({ title, shortDescription, thumbnail, photo }) => {
             <img src={thumbnail ? thumbnail : imageUrl(photo)} />
           </div>
           <CardDetails>
-            <h4>{title}</h4>
+            <SubTitle>{title}</SubTitle>
             <p>{shortDescription}</p>
           </CardDetails>
         </Card>

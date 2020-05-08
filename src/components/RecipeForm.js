@@ -1,24 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { Card, InputGroup, Submit, Button, AlertDanger } from './ui-toolkit';
+import {
+  Card,
+  InputGroup,
+  Submit,
+  Button,
+  AlertDanger,
+  Col,
+  Row,
+} from './ui-toolkit';
 import { useInputs } from '../hooks/input-hooks';
 import { ReactComponent as CameraIcon } from '../images/camera-icon.svg';
 import { s3Upload, imageUrl } from '../utils/aws';
 import { onError } from '../utils/errors';
-
-const Col = styled.div`
-  width: ${(props) => props.w || '100%'};
-`;
-
-const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-
-  & > * + * {
-    margin-left: 32px;
-  }
-`;
 
 const ButtonBar = styled.div`
   display: flex;

@@ -12,6 +12,7 @@ import RecipeList from './RecipeList';
 import CreateRecipe from './CreateRecipe';
 import Login from './Login';
 import authLink from '../authLink';
+import RecipeDetails from './RecipeDetails';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -62,6 +63,9 @@ function Root() {
                     <Login />
                   </Route>
                 )}
+                <Route path="/recipe/:slug">
+                  <RecipeDetails />
+                </Route>
                 <Route>
                   <RecipeList />
                 </Route>

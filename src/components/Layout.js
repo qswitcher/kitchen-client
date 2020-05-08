@@ -6,7 +6,7 @@ const MainContent = styled.div`
   height: 100%;
   max-width: 100%;
   margin: auto;
-  margin-top: 16px;
+  margin-top: 32px;
 
   @media (min-width: 768px) {
     width: 750px;

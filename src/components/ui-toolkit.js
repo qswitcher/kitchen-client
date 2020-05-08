@@ -99,7 +99,7 @@ const AlertDangerBase = styled.div`
   color: #fff;
   border-radius: 4px;
   padding: 8px;
-  margin-top: 16px;
+  margin-top: 32px;
 
   & > svg {
     margin: 0 8px;
@@ -114,3 +114,33 @@ export const AlertDanger = ({ children }) => {
     </AlertDangerBase>
   );
 };
+
+export const SubTitle = styled.h2`
+  margin-bottom: 8px;
+  font-size: 22px;
+  font-weight: 400;
+
+  & > svg {
+    margin-right: 16px;
+  }
+`;
+
+export const Title = styled.h1`
+  font-weight: 400;
+  margin-bottom: 32px;
+`;
+
+export const Col = styled.div`
+  width: ${(props) => props.w || '100%'};
+`;
+
+export const Col2 = (props) => <Col w="50%" {...props} />;
+
+export const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  & > * + * {
+    margin-left: 32px;
+  }
+`;
