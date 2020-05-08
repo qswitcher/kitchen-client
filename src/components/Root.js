@@ -13,6 +13,7 @@ import CreateRecipe from './CreateRecipe';
 import Login from './Login';
 import authLink from '../authLink';
 import RecipeDetails from './RecipeDetails';
+import EditRecipe from './EditRecipe';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -20,7 +21,9 @@ const httpLink = createHttpLink({
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    dataIdFromObject: (object) => object.slug || null,
+  }),
 });
 
 function Root() {
@@ -53,14 +56,19 @@ function Root() {
           >
             <Layout>
               <Switch>
-                {isAuthenticated && (
-                  <Route path="/create-recipe">
-                    <CreateRecipe />
-                  </Route>
-                )}
                 {!isAuthenticated && (
                   <Route path="/login">
                     <Login />
+                  </Route>
+                )}
+                {isAuthenticated && (
+                  <Route path="/edit/:slug">
+                    <EditRecipe />
+                  </Route>
+                )}
+                {isAuthenticated && (
+                  <Route path="/create-recipe">
+                    <CreateRecipe />
                   </Route>
                 )}
                 <Route path="/recipe/:slug">

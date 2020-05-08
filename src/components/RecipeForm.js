@@ -148,15 +148,16 @@ const RecipeForm = ({ title, onSubmit, onCancel, initialValues }) => {
             </InputGroup>
             <InputGroup>
               <label>Short Description</label>
-              <textarea {...bind.shortDescription} />
+              <textarea rows="3" {...bind.shortDescription} />
             </InputGroup>
             <InputGroup>
               <label>Description</label>
-              <textarea {...bind.longDescription} />
+              <textarea rows="5" {...bind.longDescription} />
             </InputGroup>
             <InputGroup>
               <label>Ingredients</label>
               <textarea
+                rows="10"
                 placeholder="Place each ingredient on its own line"
                 {...bind.ingredients}
               />
@@ -164,6 +165,7 @@ const RecipeForm = ({ title, onSubmit, onCancel, initialValues }) => {
             <InputGroup>
               <label>Instructions</label>
               <textarea
+                rows="5"
                 placeholder="Place each step on its own line"
                 {...bind.instructions}
               />

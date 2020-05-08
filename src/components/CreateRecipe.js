@@ -31,7 +31,7 @@ const CreateRecipe = () => {
   };
 
   const onCancel = () => {
-    history.goBack();
+    history.push('/');
   };
 
   const onSubmit = async (recipe) => {

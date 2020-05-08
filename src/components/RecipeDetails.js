@@ -22,7 +22,7 @@ import {
 import Checkbox from './Checkbox';
 import { imageUrl } from '../utils/aws';
 
-const GET_RECIPE = gql`
+export const GET_RECIPE = gql`
   query GetRecipe($slug: String!) {
     recipe(slug: $slug) {
       title

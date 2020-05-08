@@ -4,26 +4,13 @@ import { Link, useHistory } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import { useAppContext } from '../contexts/app-context';
 
-const NavBase = styled.nav`
-  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.03);
-  background: #ffffff;
+const Nav = styled.ul`
+  padding: 0;
   margin: 0;
-  padding: 16px;
-
-  & > ul {
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: row;
-    list-style-type: none;
-  }
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
 `;
-
-const Nav = ({ children }) => (
-  <NavBase>
-    <ul>{children}</ul>
-  </NavBase>
-);
 
 const NavItem = styled.li`
   margin-right: 16px;
@@ -31,6 +18,15 @@ const NavItem = styled.li`
     text-decoration: none;
     color: inherit;
   }
+`;
+
+const HeaderWrapper = styled.header`
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.03);
+  background: #ffffff;
+  margin: 0;
+  padding: 16px;
 `;
 
 const Header = () => {
@@ -46,11 +42,13 @@ const Header = () => {
   };
 
   return (
-    <header>
+    <HeaderWrapper>
       <Nav>
         <NavItem>
           <Link to="/recipes">Recipes</Link>
         </NavItem>
+      </Nav>
+      <Nav>
         {isAuthenticated && (
           <NavItem>
             <Link to="/create-recipe">Add Recipe</Link>
@@ -69,7 +67,7 @@ const Header = () => {
           </NavItem>
         )}
       </Nav>
-    </header>
+    </HeaderWrapper>
   );
 };
 
