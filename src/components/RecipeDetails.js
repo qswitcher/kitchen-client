@@ -69,6 +69,12 @@ const EditWrapper = styled.span`
   }
 `;
 
+const Img = styled.img`
+  max-height: 477px;
+  width: 100%;
+  object-fit: cover;
+`;
+
 const RecipeDetails = () => {
   const { isAuthenticated } = useAppContext();
   const [checked, setChecked] = useState({ ingredients: [], instructions: [] });
@@ -100,7 +106,7 @@ const RecipeDetails = () => {
 
   return (
     <Card>
-      <img src={photo ? imageUrl(photo) : thumbnail} />
+      <Img src={photo ? imageUrl(photo) : thumbnail} />
       <CardDetails>
         <Title>
           {title}

@@ -35,8 +35,8 @@ const CreateRecipe = () => {
   };
 
   const onSubmit = async (recipe) => {
-    await createRecipe({ variables: { recipe } });
-    history.push('/');
+    const result = await createRecipe({ variables: { recipe } });
+    history.push(`/recipe/${result.data.createRecipe.slug}`);
   };
 
   return (

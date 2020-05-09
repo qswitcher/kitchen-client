@@ -14,6 +14,12 @@ const CardDetails = styled.div`
   min-height: 150px;
 `;
 
+const Img = styled.img`
+  object-fit: cover;
+  max-height: 208px;
+  width: 100%;
+`;
+
 const RecipeCard = ({ title, shortDescription, thumbnail, photo }) => {
   const slug = title.toLowerCase().replace(/\s+/g, '-');
   return (
@@ -21,7 +27,7 @@ const RecipeCard = ({ title, shortDescription, thumbnail, photo }) => {
       <Link to={`/recipe/${slug}`}>
         <Card>
           <div>
-            <img src={thumbnail ? thumbnail : imageUrl(photo)} />
+            <Img src={thumbnail ? thumbnail : imageUrl(photo)} />
           </div>
           <CardDetails>
             <SubTitle>{title}</SubTitle>

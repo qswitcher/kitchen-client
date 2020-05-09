@@ -8,19 +8,19 @@ import RecipeForm from './RecipeForm';
 const GET_RECIPE = gql`
   query GetRecipe($slug: String!) {
     recipe(slug: $slug) {
+      slug
       title
       shortDescription
       longDescription
       instructions
       ingredients
-      thumbnail
       photo
     }
   }
 `;
 
 const UPDATE_RECIPE = gql`
-  mutation UpdateRecipe($recipe: RecipeInput!) {
+  mutation UpdateRecipe($recipe: RecipeUpdateInput!) {
     updateRecipe(recipe: $recipe) {
       slug
       title
@@ -47,7 +47,8 @@ const UpdateRecipe = () => {
   };
 
   const onSubmit = async (recipe) => {
-    await updateRecipe({ variables: { recipe } });
+    // add in the slug since it's not part of the form
+    await updateRecipe({ variables: { recipe: { ...recipe, slug } } });
     history.push(`/recipe/${slug}`);
   };
 

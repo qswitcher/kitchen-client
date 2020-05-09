@@ -51,8 +51,20 @@ const PlaceHolder = styled.div`
   }
 `;
 
-const RecipeForm = ({ title, onSubmit, onCancel, initialValues }) => {
-  const { photo, ...restInitialValues } = initialValues;
+const RecipeForm = ({
+  title: pageTitle,
+  onSubmit,
+  onCancel,
+  initialValues,
+}) => {
+  const {
+    photo,
+    title,
+    shortDescription,
+    longDescription,
+    ingredients,
+    instructions,
+  } = initialValues;
   const file = useRef(null);
   const [image, setImage] = useState({
     preview: (photo && imageUrl(photo)) || '',
@@ -60,7 +72,13 @@ const RecipeForm = ({ title, onSubmit, onCancel, initialValues }) => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const { bind, reset, values } = useInputs(restInitialValues);
+  const { bind, reset, values } = useInputs({
+    title,
+    shortDescription,
+    longDescription,
+    ingredients,
+    instructions,
+  });
 
   const handleCancel = () => {
     reset();
@@ -95,9 +113,9 @@ const RecipeForm = ({ title, onSubmit, onCancel, initialValues }) => {
     // }
 
     try {
-      const photo = file.current ? await s3Upload(file.current) : null;
+      const newPhoto = file.current ? await s3Upload(file.current) : photo;
 
-      await onSubmit({ ...values, photo });
+      await onSubmit({ ...values, photo: newPhoto });
 
       setIsLoading(false);
     } catch (e) {
@@ -124,7 +142,7 @@ const RecipeForm = ({ title, onSubmit, onCancel, initialValues }) => {
 
   return (
     <Card padding="32px" margin="32px 0">
-      <h1>{title}</h1>
+      <h1>{pageTitle}</h1>
       <form>
         <Row>
           <Col w="600px">
