@@ -11,6 +11,10 @@ export async function s3Upload(file) {
   return stored.key;
 }
 
+export async function remove(key) {
+  return await Storage.remove(key);
+}
+
 export function imageUrl(key) {
   return `https://${config.s3.BUCKET}.s3.amazonaws.com/public/${key}`;
 }

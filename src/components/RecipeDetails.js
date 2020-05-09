@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useQuery } from '@apollo/react-hooks';
-import { useParams } from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useParams, useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
 import {
   faEyeDropper,
   faSortNumericDown,
   faEdit,
+  faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { useAppContext } from '../contexts/app-context';
@@ -20,9 +21,9 @@ import {
   Link,
 } from './ui-toolkit';
 import Checkbox from './Checkbox';
-import { imageUrl } from '../utils/aws';
+import { imageUrl, remove } from '../utils/aws';
 
-export const GET_RECIPE = gql`
+const GET_RECIPE = gql`
   query GetRecipe($slug: String!) {
     recipe(slug: $slug) {
       title
@@ -32,6 +33,12 @@ export const GET_RECIPE = gql`
       thumbnail
       photo
     }
+  }
+`;
+
+const DELETE_RECIPE = gql`
+  mutation DeleteRecipe($slug: String!) {
+    deleteRecipe(slug: $slug)
   }
 `;
 
@@ -60,12 +67,14 @@ const NakedLi = styled.li`
   list-style-type: none;
 `;
 
-const EditWrapper = styled.span`
-  margin-left: 16px;
+// TODO add tooltips
+const IconWrapper = styled.span`
+  margin-left: 32px;
   transition: all 0.2s ease-in-out;
-
+  font-size: 22px;
   &:hover {
     color: #6ba72b;
+    cursor: pointer;
   }
 `;
 
@@ -75,11 +84,24 @@ const Img = styled.img`
   object-fit: cover;
 `;
 
+const ToolBar = styled.div``;
+
+const Header = styled.div`
+  width: 100%;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+`;
+
 const RecipeDetails = () => {
+  const history = useHistory();
   const { isAuthenticated } = useAppContext();
   const [checked, setChecked] = useState({ ingredients: [], instructions: [] });
   const { slug } = useParams();
   const { data, loading } = useQuery(GET_RECIPE, {
+    variables: { slug },
+  });
+  const [deleteRecipe] = useMutation(DELETE_RECIPE, {
     variables: { slug },
   });
 
@@ -104,20 +126,33 @@ const RecipeDetails = () => {
     },
   } = data;
 
+  const handleDelete = async () => {
+    if (window.confirm('Are you sure you want to delete this recipe?')) {
+      await deleteRecipe(slug);
+      if (photo) await remove(photo);
+      history.push('/recipes');
+    }
+  };
+
   return (
     <Card>
       <Img src={photo ? imageUrl(photo) : thumbnail} />
       <CardDetails>
-        <Title>
-          {title}
+        <Header>
+          <Title>{title}</Title>
           {isAuthenticated && (
-            <EditWrapper>
-              <Link to={`/edit/${slug}`}>
-                <FontAwesomeIcon icon={faEdit} />
-              </Link>
-            </EditWrapper>
+            <ToolBar>
+              <IconWrapper>
+                <Link to={`/edit/${slug}`}>
+                  <FontAwesomeIcon icon={faEdit} />
+                </Link>
+              </IconWrapper>
+              <IconWrapper onClick={handleDelete}>
+                <FontAwesomeIcon icon={faTrashAlt} />
+              </IconWrapper>
+            </ToolBar>
           )}
-        </Title>
+        </Header>
         <Text>{longDescription}</Text>
         <Separator />
         <Row>
