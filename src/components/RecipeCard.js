@@ -4,8 +4,16 @@ import { Card, Link, SubTitle } from './ui-toolkit';
 import { imageUrl } from '../utils/aws';
 
 const Flex = styled.div`
-  width: 33.33333333%;
+  width: 100%;
   padding: 16px;
+
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+
+  @media (min-width: 1200px) {
+    width: 33.33333333%;
+  }
 `;
 
 const CardDetails = styled.div`
