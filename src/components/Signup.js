@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { Auth } from 'aws-amplify';
 
 import { useHistory } from 'react-router-dom';
@@ -15,6 +16,15 @@ import {
   ButtonBar,
 } from './ui-toolkit';
 import { onError } from '../utils/errors';
+
+const Heading = styled.h2`
+  margin-bottom: 16px;
+  text-align: center;
+`;
+
+const Message = styled.p`
+  text-align: center;
+`;
 
 export default function Signup() {
   const { bind, reset, values } = useInputs({
@@ -100,15 +110,18 @@ export default function Signup() {
     return (
       <Card padding="32px 64px" maxWidth="448px" margin="auto">
         <form>
+          <Heading>Email Confirmation</Heading>
+          <Message>
+            We have sent an email to <strong>{values.email}</strong>. Please
+            enter the confirmation code contained in the email.
+          </Message>
           <InputGroup>
-            <label>Confirmation Code</label>
             <input type="tel" {...bind.confirmationCode} />
           </InputGroup>
           <ButtonBar>
             <Submit onClick={handleConfirm} loading={isLoading}>
               Confirm
             </Submit>
-            <Button onClick={handleCancel}>Log In</Button>
           </ButtonBar>
           {errorMessage && <AlertDanger>{errorMessage}</AlertDanger>}
         </form>
