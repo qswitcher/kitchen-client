@@ -9,19 +9,12 @@ import {
   AlertDanger,
   Col,
   Row,
+  ButtonBar,
 } from './ui-toolkit';
 import { useInputs } from '../hooks/input-hooks';
 import { ReactComponent as CameraIcon } from '../images/camera-icon.svg';
 import { s3Upload, imageUrl } from '../utils/aws';
 import { onError } from '../utils/errors';
-
-const ButtonBar = styled.div`
-  display: flex;
-  flex-direction: row;
-  & > * + * {
-    margin-left: 16px;
-  }
-`;
 
 const SubTitle = styled.div`
   font-size: 0.75em;
@@ -188,7 +181,7 @@ const RecipeForm = ({
                 {...bind.instructions}
               />
             </InputGroup>
-            <ButtonBar>
+            <ButtonBar maxWidth={'448px'}>
               <Submit onClick={handleSubmit} loading={isLoading}>
                 Save
               </Submit>

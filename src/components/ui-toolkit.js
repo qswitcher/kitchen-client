@@ -146,3 +146,18 @@ export const Row = styled.div`
     margin-left: 32px;
   }
 `;
+
+export const ButtonBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  max-width: ${(props) => props.maxWidth || 'auto'};
+  & > * + * {
+    margin-left: 16px;
+  }
+
+  // expand buttons to fill bar
+  & > * {
+    min-width: 0;
+    width: 100%;
+  }
+`;

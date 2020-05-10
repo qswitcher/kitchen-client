@@ -3,7 +3,7 @@ import { Auth } from 'aws-amplify';
 import { useInput } from '../hooks/input-hooks';
 import { useAppContext } from '../contexts/app-context';
 
-import { Card, InputGroup, Submit } from './ui-toolkit';
+import { Button, Card, InputGroup, Submit, ButtonBar } from './ui-toolkit';
 import { useHistory } from 'react-router-dom';
 
 export default function Login() {
@@ -30,24 +30,31 @@ export default function Login() {
     }
   }
 
+  const handleCancel = () => {
+    history.push('/signup');
+  };
+
   return (
     <Card padding="32px 64px" maxWidth="448px" margin="auto">
       <form>
         <InputGroup>
-          <label for="email">Email</label>
+          <label htmlFor="email">Email</label>
           <input type="text" {...bindEmail} />
         </InputGroup>
         <InputGroup>
-          <label for="password">Password</label>
+          <label htmlFor="password">Password</label>
           <input type="password" {...bindPassword} />
         </InputGroup>
-        <Submit
-          disabled={!validateForm() || loading}
-          onClick={handleSubmit}
-          loading={loading}
-        >
-          Login
-        </Submit>
+        <ButtonBar>
+          <Submit
+            disabled={!validateForm() || loading}
+            onClick={handleSubmit}
+            loading={loading}
+          >
+            Login
+          </Submit>
+          <Button onClick={handleCancel}>Sign up</Button>
+        </ButtonBar>
       </form>
     </Card>
   );
