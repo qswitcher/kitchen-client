@@ -16,9 +16,10 @@ import ResetPassword from './ResetPassword';
 import authLink from '../authLink';
 import RecipeDetails from './RecipeDetails';
 import EditRecipe from './EditRecipe';
+import config from '../config';
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: `${config.apiGateway.URL}/graphql`,
 });
 
 const client = new ApolloClient({
