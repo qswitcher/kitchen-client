@@ -9,7 +9,8 @@ const Wrapper = styled.div`
 `;
 
 const PageLink = styled(Link)`
-  background-color: ${(props) => (props.active ? '#333333' : '#6ba72b')};
+  background-color: ${(props) =>
+    props.active === 'true' ? '#333333' : '#6ba72b'};
   color: #fff;
   border-radius: 2px;
   min-width: 32px;
@@ -29,7 +30,7 @@ const Pager = ({ page, pageCount }) => {
     links.push(
       <PageLink
         key={i}
-        active={page === i + 1}
+        active={String(page === i + 1)}
         to={{ search: `?page=${i + 1}` }}
       >
         {i + 1}

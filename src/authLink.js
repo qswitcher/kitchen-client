@@ -6,10 +6,8 @@ const authLink = setContext(async (_, { headers }) => {
   try {
     token = await Auth.currentSession();
   } catch (e) {
-    console.log(e);
     return { headers };
   }
-  console.log(token);
   return {
     headers: {
       ...headers,

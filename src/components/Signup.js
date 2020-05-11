@@ -11,8 +11,6 @@ import {
   Submit,
   Button,
   AlertDanger,
-  Col,
-  Row,
   ButtonBar,
 } from './ui-toolkit';
 import { onError } from '../utils/errors';
@@ -27,7 +25,7 @@ const Message = styled.p`
 `;
 
 export default function Signup() {
-  const { bind, reset, values } = useInputs({
+  const { bind, values } = useInputs({
     email: '',
     password: '',
     confirmPassword: '',

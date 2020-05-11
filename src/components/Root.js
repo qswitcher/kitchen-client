@@ -12,6 +12,7 @@ import RecipeList from './RecipeList';
 import CreateRecipe from './CreateRecipe';
 import Login from './Login';
 import Signup from './Signup';
+import ResetPassword from './ResetPassword';
 import authLink from '../authLink';
 import RecipeDetails from './RecipeDetails';
 import EditRecipe from './EditRecipe';
@@ -65,6 +66,11 @@ function Root() {
                 {!isAuthenticated && (
                   <Route path="/signup">
                     <Signup />
+                  </Route>
+                )}
+                {!isAuthenticated && (
+                  <Route path="/reset-password">
+                    <ResetPassword />
                   </Route>
                 )}
                 {isAuthenticated && (

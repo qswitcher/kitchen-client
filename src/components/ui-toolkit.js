@@ -24,6 +24,10 @@ export const Link = styled(RouterLink)`
   color: inherit;
 `;
 
+export const EmbedLink = styled(Link)`
+  color: #6ba72b;
+`;
+
 export const InputGroup = styled.div`
   margin: 16px 0;
   width: 100%;
@@ -85,8 +89,8 @@ const IconFeedback = styled.div`
   animation: ${spin} 2s infinite linear;
 `;
 
-export const Submit = ({ children, loading, ...rest }) => (
-  <Button disabled={loading} primary {...rest}>
+export const Submit = ({ children, disabled = false, loading, ...rest }) => (
+  <Button disabled={loading || disabled} primary {...rest}>
     {loading && (
       <IconFeedback>
         <FontAwesomeIcon icon={faSyncAlt} />
@@ -133,10 +137,18 @@ export const Title = styled.h1`
 `;
 
 export const Col = styled.div`
-  width: ${(props) => props.w || '100%'};
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: ${(props) => props.w || '100%'};
+  }
 `;
 
-export const Col2 = (props) => <Col w="50%" {...props} />;
+export const Col2 = ({ w, children, ...rest }) => (
+  <Col w="50%" {...rest}>
+    {children}
+  </Col>
+);
 
 export const Row = styled.div`
   display: flex;

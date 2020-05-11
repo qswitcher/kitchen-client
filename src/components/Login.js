@@ -3,7 +3,14 @@ import { Auth } from 'aws-amplify';
 import { useInput } from '../hooks/input-hooks';
 import { useAppContext } from '../contexts/app-context';
 
-import { Button, Card, InputGroup, Submit, ButtonBar } from './ui-toolkit';
+import {
+  Button,
+  Card,
+  InputGroup,
+  Submit,
+  ButtonBar,
+  EmbedLink,
+} from './ui-toolkit';
 import { useHistory } from 'react-router-dom';
 
 export default function Login() {
@@ -45,9 +52,10 @@ export default function Login() {
           <label htmlFor="password">Password</label>
           <input type="password" {...bindPassword} />
         </InputGroup>
+        <EmbedLink to="/reset-password">Forgot password?</EmbedLink>
         <ButtonBar>
           <Submit
-            disabled={!validateForm() || loading}
+            disabled={!validateForm()}
             onClick={handleSubmit}
             loading={loading}
           >
