@@ -152,10 +152,19 @@ export const Col2 = ({ w, children, ...rest }) => (
 
 export const Row = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
   & > * + * {
-    margin-left: 32px;
+    margin-top: 32px;
+  }
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+
+    & > * + * {
+      margin-left: 32px;
+      margin-top: 0;
+    }
   }
 `;
 
