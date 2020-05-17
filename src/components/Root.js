@@ -19,14 +19,15 @@ import EditRecipe from './EditRecipe';
 import config from '../config';
 
 const httpLink = createHttpLink({
-  uri: `${config.apiGateway.URL}/graphql`,
+  uri:
+    process.env.NODE_ENV === 'development'
+      ? '/graphql'
+      : `${config.apiGateway.URL}/graphql`,
 });
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache({
-    dataIdFromObject: (object) => object.slug || null,
-  }),
+  cache: new InMemoryCache(),
 });
 
 function Root() {

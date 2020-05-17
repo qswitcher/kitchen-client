@@ -26,6 +26,7 @@ import { imageUrl, remove } from '../utils/aws';
 const GET_RECIPE = gql`
   query GetRecipe($slug: String!) {
     recipe(slug: $slug) {
+      id
       title
       longDescription
       instructions
@@ -37,8 +38,8 @@ const GET_RECIPE = gql`
 `;
 
 const DELETE_RECIPE = gql`
-  mutation DeleteRecipe($slug: String!) {
-    deleteRecipe(slug: $slug)
+  mutation DeleteRecipe($id: ID!) {
+    deleteRecipe(id: $id)
   }
 `;
 
@@ -101,8 +102,9 @@ const RecipeDetails = () => {
   const { data, loading } = useQuery(GET_RECIPE, {
     variables: { slug },
   });
+  const { id } = (data && data.recipe) || {};
   const [deleteRecipe] = useMutation(DELETE_RECIPE, {
-    variables: { slug },
+    variables: { id },
   });
 
   const toggle = (key, index) => {
@@ -128,7 +130,7 @@ const RecipeDetails = () => {
 
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this recipe?')) {
-      await deleteRecipe(slug);
+      await deleteRecipe();
       if (photo) await remove(photo);
       history.push('/recipes');
     }

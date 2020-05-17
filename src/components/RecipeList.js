@@ -21,6 +21,7 @@ const GET_RECIPES = gql`
   query GetRecipes($page: Int!, $pageSize: Int!) {
     recipes(page: $page, pageSize: $pageSize) {
       items {
+        id
         slug
         title
         shortDescription
