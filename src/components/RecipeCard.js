@@ -35,7 +35,7 @@ const RecipeCard = ({ title, shortDescription, thumbnail, photo }) => {
       <Link to={`/recipe/${slug}`}>
         <Card>
           <div>
-            <Img src={thumbnail ? thumbnail : imageUrl(photo)} />
+            <Img src={photo ? imageUrl(photo) : thumbnail} />
           </div>
           <CardDetails>
             <SubTitle>{title}</SubTitle>
