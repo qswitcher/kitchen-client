@@ -6,7 +6,7 @@ import gql from 'graphql-tag';
 
 import { useQueryParams } from '../hooks/url-hooks';
 import Pager from './Pager';
-import { AlertInfo } from './ui-toolkit';
+import { AlertInfo, Loader } from './ui-toolkit';
 import ResultsMetaBar from './ResultsMetaBar';
 
 const Flex = styled.div`
@@ -52,7 +52,7 @@ const RecipeList = () => {
     },
   });
   if (loading || !data) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
   const {
     recipeSearch: { items, pageCount, resultCount },

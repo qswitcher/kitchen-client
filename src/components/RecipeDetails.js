@@ -19,6 +19,7 @@ import {
   Col2,
   Row,
   Link,
+  Loader,
 } from './ui-toolkit';
 import Checkbox from './Checkbox';
 import { imageUrl, remove } from '../utils/aws';
@@ -114,7 +115,7 @@ const RecipeDetails = () => {
   };
 
   if (loading || !data) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   const {

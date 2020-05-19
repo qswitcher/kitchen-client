@@ -104,6 +104,24 @@ export const Submit = ({ children, disabled = false, loading, ...rest }) => (
   </Button>
 );
 
+const LoaderBase = styled.div`
+  margin: auto;
+  width: 64px;
+  height: 64px;
+
+  & > svg {
+    width: 100% !important;
+    height: 100% !important;
+    animation: ${spin} 2s infinite linear;
+  }
+`;
+
+export const Loader = () => (
+  <LoaderBase>
+    <FontAwesomeIcon icon={faSyncAlt} />
+  </LoaderBase>
+);
+
 const AlertBase = styled.div`
   background-color: ${(props) => props.color};
   color: #fff;
