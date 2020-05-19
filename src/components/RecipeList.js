@@ -18,8 +18,8 @@ const Flex = styled.div`
 `;
 
 const GET_RECIPES = gql`
-  query GetRecipes($page: Int!, $pageSize: Int!) {
-    recipes(page: $page, pageSize: $pageSize) {
+  query GetRecipes($input: SearchInput!) {
+    recipeSearch(input: $input) {
       items {
         id
         slug
@@ -40,15 +40,18 @@ const RecipeList = () => {
   const page = parseInt(params.page || '1', 10);
   const { data, loading } = useQuery(GET_RECIPES, {
     variables: {
-      page,
-      pageSize: 12,
+      input: {
+        q: '',
+        page,
+        pageSize: 12,
+      },
     },
   });
   if (loading || !data) {
     return <div>Loading...</div>;
   }
   const {
-    recipes: { items, pageCount },
+    recipeSearch: { items, pageCount },
   } = data;
   return (
     <>
