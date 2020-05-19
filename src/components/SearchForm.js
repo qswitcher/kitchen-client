@@ -40,6 +40,7 @@ export default function SearchForm() {
     if (e.key === 'Enter') {
       e.preventDefault();
       history.push({
+        pathname: '/recipes',
         search: `?q=${values.q}`,
       });
     }
