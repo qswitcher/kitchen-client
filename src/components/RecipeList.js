@@ -6,6 +6,8 @@ import gql from 'graphql-tag';
 
 import { useQueryParams } from '../hooks/url-hooks';
 import Pager from './Pager';
+import { AlertInfo } from './ui-toolkit';
+import ResultsMetaBar from './ResultsMetaBar';
 
 const Flex = styled.div`
   display: flex;
@@ -31,6 +33,7 @@ const GET_RECIPES = gql`
       page
       pageCount
       pageSize
+      resultCount
     }
   }
 `;
@@ -38,10 +41,11 @@ const GET_RECIPES = gql`
 const RecipeList = () => {
   const params = useQueryParams();
   const page = parseInt(params.page || '1', 10);
+  const { q } = params;
   const { data, loading } = useQuery(GET_RECIPES, {
     variables: {
       input: {
-        q: '',
+        q: q || '',
         page,
         pageSize: 12,
       },
@@ -51,10 +55,19 @@ const RecipeList = () => {
     return <div>Loading...</div>;
   }
   const {
-    recipeSearch: { items, pageCount },
+    recipeSearch: { items, pageCount, resultCount },
   } = data;
+
+  if (items.length === 0) {
+    return (
+      <AlertInfo>
+        We couldn't find anything! Try searching for something else.
+      </AlertInfo>
+    );
+  }
   return (
     <>
+      {q && <ResultsMetaBar numResults={resultCount} q={q} />}
       <Flex>
         {items.map((r, index) => (
           <RecipeCard {...r} key={index} />

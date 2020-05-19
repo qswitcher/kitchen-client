@@ -2,7 +2,11 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+  faTimesCircle,
+  faSyncAlt,
+  faExclamationCircle,
+} from '@fortawesome/free-solid-svg-icons';
 
 export const Card = styled.div.attrs((props) => ({
   margin: props.margin || 0,
@@ -100,8 +104,8 @@ export const Submit = ({ children, disabled = false, loading, ...rest }) => (
   </Button>
 );
 
-const AlertDangerBase = styled.div`
-  background-color: #c0392b;
+const AlertBase = styled.div`
+  background-color: ${(props) => props.color};
   color: #fff;
   border-radius: 4px;
   padding: 8px;
@@ -114,10 +118,19 @@ const AlertDangerBase = styled.div`
 
 export const AlertDanger = ({ children }) => {
   return (
-    <AlertDangerBase>
+    <AlertBase color="#f96e5b">
       <FontAwesomeIcon icon={faTimesCircle} />
       {children}
-    </AlertDangerBase>
+    </AlertBase>
+  );
+};
+
+export const AlertInfo = ({ children }) => {
+  return (
+    <AlertBase color="#3498db">
+      <FontAwesomeIcon icon={faExclamationCircle} />
+      {children}
+    </AlertBase>
   );
 };
 

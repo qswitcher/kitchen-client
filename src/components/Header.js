@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import { useAppContext } from '../contexts/app-context';
+import SearchForm from './SearchForm';
 
 const Nav = styled.ul`
   padding: 0;
@@ -22,6 +23,7 @@ const NavItem = styled.li`
 
 const HeaderWrapper = styled.header`
   display: flex;
+  align-items: center;
   justify-content: space-between;
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.03);
   background: #ffffff;
@@ -49,6 +51,9 @@ const Header = () => {
         </NavItem>
       </Nav>
       <Nav>
+        <NavItem>
+          <SearchForm />
+        </NavItem>
         {isAuthenticated && (
           <NavItem>
             <Link to="/create-recipe">Add Recipe</Link>
