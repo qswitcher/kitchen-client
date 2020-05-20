@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import { useAppContext } from '../contexts/app-context';
 import SearchForm from './SearchForm';
+import Logo from './Logo';
 
 const Nav = styled.ul`
   padding: 0;
@@ -37,8 +38,13 @@ const DesktopHeader = () => {
     <>
       <Nav>
         <NavItem>
-          <Link to="/recipes">Recipes</Link>
+          <Link to="/recipes">
+            <Logo />
+          </Link>
         </NavItem>
+      </Nav>
+      <Nav>
+        <img src="" />
       </Nav>
       <Nav>
         <NavItem>

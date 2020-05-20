@@ -16,7 +16,7 @@ const HeaderWrapper = styled.header`
 
 const Header = () => {
   const { width } = useViewport();
-  const breakpoint = 620;
+  const breakpoint = 768;
 
   return (
     <HeaderWrapper>

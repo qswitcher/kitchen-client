@@ -1,14 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useAppContext } from '../contexts/app-context';
+import { Link, useHistory } from 'react-router-dom';
+import { Auth } from 'aws-amplify';
 
 export const StyledMenu = styled.nav`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: #effffa;
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: center;
+  background: #fff;
   height: 100vh;
   text-align: left;
-  padding: 2rem;
+  padding: 64px 32px;
   position: absolute;
   top: 0;
   left: 0;
@@ -18,19 +21,26 @@ export const StyledMenu = styled.nav`
   @media (max-width: 576px) {
     width: 100%;
   }
+`;
 
-  a {
-    font-size: 2rem;
-    text-transform: uppercase;
-    padding: 2rem 0;
-    font-weight: bold;
-    letter-spacing: 0.5rem;
-    color: #0d0c1d;
+const NavItem = styled.div`
+  margin: 16px 0;
+
+  & > a {
     text-decoration: none;
+    color: inherit;
+
+    font-size: 32px;
+    // text-transform: uppercase;
+    // padding: 2rem 0;
+    // font-weight: bold;
+    // letter-spacing: 0.5rem;
+    // color: #0d0c1d;
+    // text-decoration: none;
     transition: color 0.3s linear;
 
     @media (max-width: 576px) {
-      font-size: 1.5rem;
+      //   font-size: 1.5rem;
       text-align: center;
     }
 
@@ -41,26 +51,35 @@ export const StyledMenu = styled.nav`
 `;
 
 const Menu = ({ open }) => {
+  const { isAuthenticated, userHasAuthenticated } = useAppContext();
+  const history = useHistory();
+
+  const handleLogout = async () => {
+    await Auth.signOut();
+
+    userHasAuthenticated(false);
+
+    history.push('/recipes');
+  };
   return (
     <StyledMenu open={open}>
-      <a href="/">
-        <span role="img" aria-label="about us">
-          &#x1f481;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;
-        </span>
-        About us
-      </a>
-      <a href="/">
-        <span role="img" aria-label="price">
-          &#x1f4b8;
-        </span>
-        Pricing
-      </a>
-      <a href="/">
-        <span role="img" aria-label="contact">
-          &#x1f4e9;
-        </span>
-        Contact
-      </a>
+      {isAuthenticated && (
+        <NavItem>
+          <Link to="/create-recipe">Add Recipe</Link>
+        </NavItem>
+      )}
+      {!isAuthenticated && (
+        <NavItem>
+          <Link to="/login">Login</Link>
+        </NavItem>
+      )}
+      {isAuthenticated && (
+        <NavItem>
+          <Link to="/recipes" onClick={handleLogout}>
+            Logout
+          </Link>
+        </NavItem>
+      )}
     </StyledMenu>
   );
 };
