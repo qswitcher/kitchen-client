@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import qs from 'query-string';
 import { Link } from './ui-toolkit';
+import { useQueryParams } from '../hooks/url-hooks';
 
 const Wrapper = styled.div`
   display: flex;
@@ -26,12 +28,13 @@ const PageLink = styled(Link)`
 
 const Pager = ({ page, pageCount }) => {
   const links = [];
+  const params = useQueryParams();
   for (let i = 0; i < pageCount; i++) {
     links.push(
       <PageLink
         key={i}
         active={String(page === i + 1)}
-        to={{ search: `?page=${i + 1}` }}
+        to={{ search: qs.stringify({ ...params, page: i + 1 }) }}
       >
         {i + 1}
       </PageLink>
