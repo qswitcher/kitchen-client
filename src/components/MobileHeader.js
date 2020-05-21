@@ -23,7 +23,7 @@ export default function MobileHeader() {
         <Logo />
       </Link>
       <Menu open={open} setOpen={setOpen} />
-      <FontAwesomeIcon icon={faSearch} size="2x" />
+      <FontAwesomeIcon icon={faSearch} size="lg" />
     </>
   );
 }
