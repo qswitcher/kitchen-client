@@ -32,8 +32,9 @@ export default function SearchForm() {
   });
 
   // reset search form if we navigate away
+  // eslint-disable-next-line
   useEffect(() => {
-    reset();
+    reset(); // eslint-disable-next-line
   }, [params.q]);
 
   const onKeyPress = (e) => {

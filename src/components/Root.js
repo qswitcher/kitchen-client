@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { Auth } from 'aws-amplify';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { AppContext } from '../contexts/app-context';
 import Layout from './Layout';
 import RecipeList from './RecipeList';
 import CreateRecipe from './CreateRecipe';
@@ -16,7 +14,9 @@ import ResetPassword from './ResetPassword';
 import authLink from '../authLink';
 import RecipeDetails from './RecipeDetails';
 import EditRecipe from './EditRecipe';
+import AuthenticatedRoute from './AuthenticatedRoute';
 import config from '../config';
+import { AppContextProvider } from '../contexts/app-context';
 
 const httpLink = createHttpLink({
   uri:
@@ -31,72 +31,38 @@ const client = new ApolloClient({
 });
 
 function Root() {
-  const [isAuthenticated, userHasAuthenticated] = useState(false);
-  const [isAuthenticating, setIsAuthenticating] = useState(true);
-
-  useEffect(() => {
-    onLoad();
-  }, []);
-
-  async function onLoad() {
-    try {
-      await Auth.currentSession();
-      userHasAuthenticated(true);
-    } catch (e) {
-      if (e !== 'No current user') {
-        alert(e);
-      }
-    }
-
-    setIsAuthenticating(false);
-  }
-
   return (
-    !isAuthenticating && (
-      <ApolloProvider client={client}>
-        <BrowserRouter>
-          <AppContext.Provider
-            value={{ isAuthenticated, userHasAuthenticated }}
-          >
-            <Layout>
-              <Switch>
-                {!isAuthenticated && (
-                  <Route path="/login">
-                    <Login />
-                  </Route>
-                )}
-                {!isAuthenticated && (
-                  <Route path="/signup">
-                    <Signup />
-                  </Route>
-                )}
-                {!isAuthenticated && (
-                  <Route path="/reset-password">
-                    <ResetPassword />
-                  </Route>
-                )}
-                {isAuthenticated && (
-                  <Route path="/edit/:slug">
-                    <EditRecipe />
-                  </Route>
-                )}
-                {isAuthenticated && (
-                  <Route path="/create-recipe">
-                    <CreateRecipe />
-                  </Route>
-                )}
-                <Route path="/recipe/:slug">
-                  <RecipeDetails />
-                </Route>
-                <Route>
-                  <RecipeList />
-                </Route>
-              </Switch>
-            </Layout>
-          </AppContext.Provider>
-        </BrowserRouter>
-      </ApolloProvider>
-    )
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <AppContextProvider>
+          <Layout>
+            <Switch>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/signup">
+                <Signup />
+              </Route>
+              <Route path="/reset-password">
+                <ResetPassword />
+              </Route>
+              <AuthenticatedRoute path="/edit/:slug">
+                <EditRecipe />
+              </AuthenticatedRoute>
+              <AuthenticatedRoute path="/create-recipe">
+                <CreateRecipe />
+              </AuthenticatedRoute>
+              <Route path="/recipe/:slug">
+                <RecipeDetails />
+              </Route>
+              <Route>
+                <RecipeList />
+              </Route>
+            </Switch>
+          </Layout>
+        </AppContextProvider>
+      </BrowserRouter>
+    </ApolloProvider>
   );
 }
 

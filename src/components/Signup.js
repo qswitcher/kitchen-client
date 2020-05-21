@@ -33,7 +33,7 @@ export default function Signup() {
   });
   const history = useHistory();
   const [newUser, setNewUser] = useState(null);
-  const { userHasAuthenticated } = useAppContext();
+  const { login } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -62,9 +62,7 @@ export default function Signup() {
 
     try {
       await Auth.confirmSignUp(values.email, values.confirmationCode);
-      await Auth.signIn(values.email, values.password);
-
-      userHasAuthenticated(true);
+      await login(values.email, values.password);
       history.push('/recipes');
     } catch (e) {
       setErrorMessage(onError(e));

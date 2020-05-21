@@ -1,13 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useAppContext } from '../contexts/app-context';
-import { Link, useHistory } from 'react-router-dom';
-import { Auth } from 'aws-amplify';
+import { Link } from 'react-router-dom';
 
 export const StyledMenu = styled.nav`
-  //   display: flex;
-  //   flex-direction: column;
-  //   justify-content: center;
   background: #fff;
   height: 100vh;
   text-align: left;
@@ -31,16 +27,9 @@ const NavItem = styled.div`
     color: inherit;
 
     font-size: 32px;
-    // text-transform: uppercase;
-    // padding: 2rem 0;
-    // font-weight: bold;
-    // letter-spacing: 0.5rem;
-    // color: #0d0c1d;
-    // text-decoration: none;
     transition: color 0.3s linear;
 
     @media (max-width: 576px) {
-      //   font-size: 1.5rem;
       text-align: center;
     }
 
@@ -51,18 +40,13 @@ const NavItem = styled.div`
 `;
 
 const Menu = ({ open }) => {
-  const { isAuthenticated, userHasAuthenticated } = useAppContext();
-  const history = useHistory();
+  const { isAuthenticated, logout } = useAppContext();
 
-  const handleLogout = async () => {
-    await Auth.signOut();
-
-    userHasAuthenticated(false);
-
-    history.push('/recipes');
-  };
   return (
     <StyledMenu open={open}>
+      <NavItem>
+        <Link to="/">Recipes</Link>
+      </NavItem>
       {isAuthenticated && (
         <NavItem>
           <Link to="/create-recipe">Add Recipe</Link>
@@ -75,7 +59,7 @@ const Menu = ({ open }) => {
       )}
       {isAuthenticated && (
         <NavItem>
-          <Link to="/recipes" onClick={handleLogout}>
+          <Link to="/recipes" onClick={logout}>
             Logout
           </Link>
         </NavItem>

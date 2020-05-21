@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Auth } from 'aws-amplify';
 import { useInput } from '../hooks/input-hooks';
 import { useAppContext } from '../contexts/app-context';
 
@@ -11,14 +10,15 @@ import {
   ButtonBar,
   EmbedLink,
 } from './ui-toolkit';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 export default function Login() {
   const { value: email, bind: bindEmail } = useInput('');
   const { value: password, bind: bindPassword } = useInput('');
-  const { userHasAuthenticated } = useAppContext();
+  const { login } = useAppContext();
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const location = useLocation();
 
   function validateForm() {
     return email.length > 0 && password.length > 0;
@@ -29,9 +29,9 @@ export default function Login() {
     setLoading(true);
 
     try {
-      await Auth.signIn(email, password);
-      userHasAuthenticated(true);
-      history.push('/recipes');
+      let { from } = location.state || { from: { pathname: '/' } };
+      await login(email, password);
+      history.replace(from);
     } catch (e) {
       alert(e.message);
     }

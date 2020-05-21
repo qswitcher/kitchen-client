@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, useHistory } from 'react-router-dom';
-import { Auth } from 'aws-amplify';
+import { Link } from 'react-router-dom';
 import { useAppContext } from '../contexts/app-context';
 import SearchForm from './SearchForm';
 import Logo from './Logo';
@@ -23,16 +22,7 @@ const NavItem = styled.li`
 `;
 
 const DesktopHeader = () => {
-  const history = useHistory();
-  const { isAuthenticated, userHasAuthenticated } = useAppContext();
-
-  const handleLogout = async () => {
-    await Auth.signOut();
-
-    userHasAuthenticated(false);
-
-    history.push('/recipes');
-  };
+  const { isAuthenticated, logout } = useAppContext();
 
   return (
     <>
@@ -42,9 +32,6 @@ const DesktopHeader = () => {
             <Logo />
           </Link>
         </NavItem>
-      </Nav>
-      <Nav>
-        <img src="" />
       </Nav>
       <Nav>
         <NavItem>
@@ -62,7 +49,7 @@ const DesktopHeader = () => {
         )}
         {isAuthenticated && (
           <NavItem>
-            <Link to="/recipes" onClick={handleLogout}>
+            <Link to="/recipes" onClick={logout}>
               Logout
             </Link>
           </NavItem>
