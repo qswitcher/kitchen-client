@@ -6,6 +6,20 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import Logo from './Logo';
 import { Link } from './ui-toolkit';
 import { useLocation } from 'react-router-dom';
+import styled from 'styled-components';
+
+const ButtonStyled = styled.button`
+  padding: 8px 16px;
+  min-height: 48px;
+`;
+
+const MobileSearchForm = () => {
+  return (
+    <ButtonStyled>
+      <FontAwesomeIcon icon={faSearch} size="lg" />
+    </ButtonStyled>
+  );
+};
 
 export default function MobileHeader() {
   const [open, setOpen] = useState(false);
@@ -22,8 +36,8 @@ export default function MobileHeader() {
       <Link to="/recipes">
         <Logo />
       </Link>
+      <MobileSearchForm />
       <Menu open={open} setOpen={setOpen} />
-      <FontAwesomeIcon icon={faSearch} size="lg" />
     </>
   );
 }

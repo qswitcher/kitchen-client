@@ -11,7 +11,6 @@ const HeaderWrapper = styled.header`
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.03);
   background: #ffffff;
   margin: 0;
-  padding: 8px 16px;
 
   @media (min-width: 768px) {
     padding: 16px;

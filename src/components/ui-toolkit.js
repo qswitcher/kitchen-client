@@ -26,6 +26,13 @@ export const Card = styled.div.attrs((props) => ({
 export const Link = styled(RouterLink)`
   text-decoration: none;
   color: inherit;
+  line-height: 48px;
+  min-height: 48px;
+
+  @media (min-width: 768px) {
+    line-height: inherit;
+    min-height: auto;
+  }
 `;
 
 export const EmbedLink = styled(Link)`
@@ -201,15 +208,19 @@ export const Row = styled.div`
 
 export const ButtonBar = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   max-width: ${(props) => props.maxWidth || 'auto'};
-  & > * + * {
-    margin-left: 16px;
-  }
 
   // expand buttons to fill bar
   & > * {
     min-width: 0;
     width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    & > * + * {
+      margin-left: 16px;
+    }
   }
 `;

@@ -1,7 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const StyledBurger = styled.button`
+export const Button = styled.button`
+  padding: 8px 16px;
+  z-index: 10;
+  cursor: pointer;
+  min-height: 48px;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const StyledBurger = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -9,13 +20,7 @@ export const StyledBurger = styled.button`
   height: 1.5rem;
   background: transparent;
   border: none;
-  cursor: pointer;
   padding: 0;
-  z-index: 10;
-
-  &:focus {
-    outline: none;
-  }
 
   div {
     width: 1.5rem;
@@ -43,11 +48,13 @@ export const StyledBurger = styled.button`
 
 const Burger = ({ open, setOpen }) => {
   return (
-    <StyledBurger open={open} onClick={() => setOpen(!open)}>
-      <div />
-      <div />
-      <div />
-    </StyledBurger>
+    <Button onClick={() => setOpen(!open)}>
+      <StyledBurger open={open}>
+        <div />
+        <div />
+        <div />
+      </StyledBurger>
+    </Button>
   );
 };
 
