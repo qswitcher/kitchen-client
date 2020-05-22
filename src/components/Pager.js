@@ -17,9 +17,11 @@ const PageLink = styled(Link)`
   border-radius: 2px;
   min-width: 32px;
   min-height: 32px;
+  line-height: 32px;
   display: block;
   text-align: center;
   margin: 2px;
+  margin-bottom: 16px;
 
   &:hover {
     background-color: #333333;

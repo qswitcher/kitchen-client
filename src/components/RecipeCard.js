@@ -5,10 +5,12 @@ import { imageUrl } from '../utils/aws';
 
 const Flex = styled.div`
   width: 100%;
-  padding: 16px;
+  margin: 16px;
 
   @media (min-width: 768px) {
     width: 50%;
+    margin: 0;
+    padding: 16px;
   }
 
   @media (min-width: 1200px) {

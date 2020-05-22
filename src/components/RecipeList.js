@@ -13,10 +13,6 @@ const Flex = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-
-  @media (min-width: 768px) {
-    margin: -16px -16px 0 -16px;
-  }
 `;
 
 const GET_RECIPES = gql`

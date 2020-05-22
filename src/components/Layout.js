@@ -3,12 +3,10 @@ import Header from './Header';
 import styled from 'styled-components';
 
 const MainContent = styled.div`
-  height: 100%;
   max-width: 100%;
-  margin: auto;
-  margin-top: 32px;
 
   @media (min-width: 768px) {
+    margin: 16px auto;
     width: 750px;
   }
 

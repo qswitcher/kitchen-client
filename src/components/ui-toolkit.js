@@ -80,7 +80,12 @@ export const Button = styled.button`
 
   &:disabled {
     cursor: not-allowed;
-    opacity: 0.3;
+    background-color: rgba(
+      107,
+      167,
+      43,
+      0.5
+    ); // needed this instead of opacity because of z-index issue
   }
 `;
 
@@ -112,13 +117,15 @@ export const Submit = ({ children, disabled = false, loading, ...rest }) => (
 );
 
 const LoaderBase = styled.div`
-  margin: auto;
-  width: 64px;
-  height: 64px;
+  padding: 32px;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
 
   & > svg {
-    width: 100% !important;
-    height: 100% !important;
+    margin: auto;
+    width: 32px !important;
+    height: 32px !important;
     animation: ${spin} 2s infinite linear;
   }
 `;

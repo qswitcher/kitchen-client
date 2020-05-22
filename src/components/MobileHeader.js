@@ -11,13 +11,19 @@ import styled from 'styled-components';
 const ButtonStyled = styled.button`
   padding: 8px 16px;
   min-height: 48px;
+
+  & > svg {
+    color: #676767;
+  }
 `;
 
 const MobileSearchForm = () => {
   return (
-    <ButtonStyled>
-      <FontAwesomeIcon icon={faSearch} size="lg" />
-    </ButtonStyled>
+    <>
+      <ButtonStyled>
+        <FontAwesomeIcon icon={faSearch} size="lg" />
+      </ButtonStyled>
+    </>
   );
 };
 
