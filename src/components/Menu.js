@@ -4,6 +4,7 @@ import { useAppContext } from '../contexts/app-context';
 import { Link } from 'react-router-dom';
 
 export const StyledMenu = styled.nav`
+  overflow: auto;
   background: #fff;
   height: 100vh;
   text-align: left;
