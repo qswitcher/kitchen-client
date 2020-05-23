@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  margin: 8px 0;
+  margin: 16px;
+  margin-bottom: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;

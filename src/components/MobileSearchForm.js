@@ -101,9 +101,10 @@ const IconWrapper = styled.div`
 
 const MobileSearchForm = () => {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
   const history = useHistory();
   const params = useQueryParams();
-  const { bind, values, reset } = useInputs({
+  const { bind, values } = useInputs({
     q: params.q || '',
   });
 
@@ -124,6 +125,11 @@ const MobileSearchForm = () => {
       document.body.classList.remove('modal-open');
     }
   }, [open]);
+
+  useEffect(() => {
+    // close the menu on route chagnes
+    setOpen(false);
+  }, [location]);
 
   return (
     <>
