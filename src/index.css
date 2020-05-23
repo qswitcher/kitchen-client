@@ -21,3 +21,7 @@ body {
 body.modal-open {
   overflow: hidden;
 }
+
+button {
+  -webkit-appearance: button;
+}
