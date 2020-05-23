@@ -6,6 +6,8 @@ export const Button = styled.button`
   z-index: 10;
   cursor: pointer;
   min-height: 48px;
+  background-color: #fff;
+  border: none;
 
   &:focus {
     outline: none;

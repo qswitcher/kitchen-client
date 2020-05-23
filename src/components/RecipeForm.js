@@ -15,7 +15,6 @@ import { useInputs } from '../hooks/input-hooks';
 import { ReactComponent as CameraIcon } from '../images/camera-icon.svg';
 import { s3Upload, imageUrl } from '../utils/aws';
 import { onError } from '../utils/errors';
-import useViewport from '../hooks/viewport';
 
 const SubTitle = styled.div`
   font-size: 0.75em;
@@ -73,8 +72,6 @@ const RecipeForm = ({
     ingredients,
     instructions,
   });
-  const { width } = useViewport();
-  const breakpoint = 768;
 
   const handleCancel = () => {
     reset();
