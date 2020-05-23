@@ -26,7 +26,7 @@ const CardDetails = styled.div`
 
 const Img = styled.img`
   object-fit: cover;
-  max-height: 208px;
+  height: 208px;
   width: 100%;
 `;
 
