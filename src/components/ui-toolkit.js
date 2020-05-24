@@ -168,7 +168,7 @@ export const AlertInfo = ({ children }) => {
 
 export const SubTitle = styled.h2`
   margin-bottom: 8px;
-  font-size: 22px;
+  font-size: ${({ fontSize }) => fontSize || '22px'};
   font-weight: 400;
 
   & > svg {

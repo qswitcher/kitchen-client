@@ -167,6 +167,9 @@ const RecipeForm = ({
             </InputGroup>
             <InputGroup>
               <label>Ingredients</label>
+              <p>
+                <em>To make a section title, start the line with '#'</em>
+              </p>
               <textarea
                 rows="10"
                 placeholder="Place each ingredient on its own line"

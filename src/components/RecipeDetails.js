@@ -137,6 +137,15 @@ const RecipeDetails = () => {
     }
   };
 
+  const renderSectionTitle = (section, index) => {
+    const parts = section.split('#', 2);
+    return (
+      <SubTitle fontSize="18px" key={index}>
+        <strong>{parts[1].trim()}</strong>
+      </SubTitle>
+    );
+  };
+
   return (
     <Card>
       <Img src={photo ? imageUrl(photo) : thumbnail} />
@@ -165,15 +174,19 @@ const RecipeDetails = () => {
               <span>Ingredients</span>
             </SubTitle>
             <List>
-              {ingredients.map((ingredient, index) => (
-                <NakedLi key={index}>
-                  <Checkbox
-                    checked={!!checked.ingredients[index]}
-                    onCheck={() => toggle('ingredients', index)}
-                    label={ingredient}
-                  />
-                </NakedLi>
-              ))}
+              {ingredients.map((ingredient, index) => {
+                return ingredient.indexOf('#') === 0 ? (
+                  renderSectionTitle(ingredient)
+                ) : (
+                  <NakedLi key={index}>
+                    <Checkbox
+                      checked={!!checked.ingredients[index]}
+                      onCheck={() => toggle('ingredients', index)}
+                      label={ingredient}
+                    />
+                  </NakedLi>
+                );
+              })}
             </List>
           </Col2>
           <Col2>
