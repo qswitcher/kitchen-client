@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Card, Link, SubTitle } from './ui-toolkit';
-import { imageUrl } from '../utils/aws';
+import { thumbnailUrl } from '../utils/aws';
 
 const Flex = styled.div`
   width: 100%;
@@ -30,14 +30,13 @@ const Img = styled.img`
   width: 100%;
 `;
 
-const RecipeCard = ({ title, shortDescription, thumbnail, photo }) => {
-  const slug = title.toLowerCase().replace(/\s+/g, '-');
+const RecipeCard = ({ title, shortDescription, slug, thumbnail, photo }) => {
   return (
     <Flex>
       <Link to={`/recipe/${slug}`}>
         <Card>
           <div>
-            <Img src={photo ? imageUrl(photo) : thumbnail} />
+            <Img src={photo ? thumbnailUrl(photo) : thumbnail} />
           </div>
           <CardDetails>
             <SubTitle>{title}</SubTitle>

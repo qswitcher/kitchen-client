@@ -20,6 +20,7 @@ import {
   Row,
   Link,
   Loader,
+  EmbedExternalLink
 } from './ui-toolkit';
 import Checkbox from './Checkbox';
 import { imageUrl, remove } from '../utils/aws';
@@ -34,6 +35,7 @@ const GET_RECIPE = gql`
       ingredients
       thumbnail
       photo
+      originalUrl
     }
   }
 `;
@@ -126,6 +128,7 @@ const RecipeDetails = () => {
       longDescription,
       instructions,
       ingredients,
+      originalUrl
     },
   } = data;
 
@@ -166,6 +169,7 @@ const RecipeDetails = () => {
           )}
         </Header>
         <Text>{longDescription}</Text>
+        {originalUrl && <EmbedExternalLink href={originalUrl}>Original Recipe</EmbedExternalLink>}
         <Separator />
         <Row>
           <Col2>

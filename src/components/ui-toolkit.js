@@ -6,6 +6,7 @@ import {
   faTimesCircle,
   faSyncAlt,
   faExclamationCircle,
+  faExternalLinkAlt
 } from '@fortawesome/free-solid-svg-icons';
 
 export const Card = styled.div.attrs((props) => ({
@@ -38,6 +39,22 @@ export const Link = styled(RouterLink)`
 export const EmbedLink = styled(Link)`
   color: #6ba72b;
 `;
+
+const EmbedExternalLinkBase = styled.a`
+  color: #6ba72b;
+  text-decoration: none;
+  line-height: 48px;
+  min-height: 48px;
+
+  span {
+    margin-right: 8px;
+  }
+`;
+
+export const EmbedExternalLink = ({children, ...rest}) => {
+  return <EmbedExternalLinkBase target="_blank" {...rest}><span>{children}</span><FontAwesomeIcon icon={faExternalLinkAlt}/></EmbedExternalLinkBase>
+}
+
 
 export const InputGroup = styled.div`
   margin: 16px 0;

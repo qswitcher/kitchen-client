@@ -14,6 +14,7 @@ const ADD_RECIPE = gql`
       longDescription
       ingredients
       instructions
+      originalUrl
       photo
     }
   }
@@ -28,6 +29,7 @@ const CreateRecipe = () => {
     ingredients: [],
     instructions: [],
     title: '',
+    originalUrl: ''
   };
 
   const onCancel = () => {

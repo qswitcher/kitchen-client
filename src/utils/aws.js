@@ -18,3 +18,7 @@ export async function remove(key) {
 export function imageUrl(key) {
   return `https://${config.s3.BUCKET}.s3.amazonaws.com/public/${key}`;
 }
+
+export function thumbnailUrl(key) {
+  return `https://${config.s3.BUCKET}.s3.amazonaws.com/thumbnails/414x233/${key}`;
+}

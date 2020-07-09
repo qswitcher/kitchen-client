@@ -57,6 +57,7 @@ const RecipeForm = ({
     longDescription,
     ingredients,
     instructions,
+    originalUrl
   } = initialValues;
   const file = useRef(null);
   const [image, setImage] = useState({
@@ -71,6 +72,7 @@ const RecipeForm = ({
     longDescription,
     ingredients,
     instructions,
+    originalUrl
   });
 
   const handleCancel = () => {
@@ -109,9 +111,8 @@ const RecipeForm = ({
       const newPhoto = file.current ? await s3Upload(file.current) : photo;
 
       await onSubmit({ ...values, photo: newPhoto });
-
-      setIsLoading(false);
     } catch (e) {
+      console.error(e);
       setErrorMessage(onError(e));
       setIsLoading(false);
     }
@@ -156,6 +157,10 @@ const RecipeForm = ({
             <InputGroup>
               <label>Title</label>
               <input type="text" {...bind.title} />
+            </InputGroup>
+            <InputGroup>
+              <label>Website URL</label>
+              <input type="text" {...bind.originalUrl} />
             </InputGroup>
             <InputGroup>
               <label>Short Description</label>
