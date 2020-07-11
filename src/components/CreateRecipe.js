@@ -29,7 +29,7 @@ const CreateRecipe = () => {
     ingredients: [],
     instructions: [],
     title: '',
-    originalUrl: ''
+    originalUrl: '',
   };
 
   const onCancel = () => {
@@ -37,7 +37,9 @@ const CreateRecipe = () => {
   };
 
   const onSubmit = async (recipe) => {
-    const result = await createRecipe({ variables: { recipe } });
+    const result = await createRecipe({
+      variables: { recipe },
+    });
     history.push(`/recipe/${result.data.createRecipe.slug}`);
   };
 

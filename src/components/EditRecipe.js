@@ -16,6 +16,7 @@ const GET_RECIPE = gql`
       instructions
       ingredients
       photo
+      originalUrl
     }
   }
 `;
@@ -31,6 +32,7 @@ const UPDATE_RECIPE = gql`
       ingredients
       instructions
       photo
+      originalUrl
     }
   }
 `;
